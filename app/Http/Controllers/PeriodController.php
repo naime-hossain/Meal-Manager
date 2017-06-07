@@ -144,5 +144,27 @@ class PeriodController extends Controller
     public function destroy($id)
     {
         //
+        $period=Period::find($id);
+        if(!$period){
+            return response()->json(['message'=>'no such period available'],404);
+        }
+        //find all the bazar of this period
+        $bazars=Bazar::where('period_id',$id);
+        if ($period->delete()) {
+
+            if (count($bazars)>0) {
+                # code...
+                  //delete all the bazar of this period
+
+            foreach ($bazars as $bazar) {
+                # code...
+                $bazar->delete();
+            }
+
+            }
+          return response()->json(['message'=>"$period->name period and all bazars deleted"],200);
+        }
+        return response()->json(['message'=>'period is not deleted'],404);
+
     }
 }
