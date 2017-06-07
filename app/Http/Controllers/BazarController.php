@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\Bazar;
 use App\User;
 use App\Period;
+use JWTAuth;
+use Tymon\JWTAuthExceptions\JWTException;
 class BazarController extends Controller
 {
-    
+       public function __construct()
+   {
+       // Apply the jwt.auth middleware to all methods in this controller
+       // except for the authenticate method. We don't want to prevent
+       // the user from retrieving their token if they don't already have it
+       $this->middleware('jwt.auth');
+   }
 
       /**
      * Display a listing of the resource.

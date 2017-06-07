@@ -4,8 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use JWTAuth;
+use Tymon\JWTAuthExceptions\JWTException;
 class UserController extends Controller
 {
+
+      public function __construct()
+   {
+       // Apply the jwt.auth middleware to all methods in this controller
+       // except for the authenticate method. We don't want to prevent
+       // the user from retrieving their token if they don't already have it
+       $this->middleware('jwt.auth');
+   }
     /**
      * Display a listing of the resource.
      *
@@ -13,6 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
+
         //
         $users=User::all();
         if (!count($users)) {

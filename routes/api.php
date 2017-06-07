@@ -18,4 +18,7 @@ use Illuminate\Http\Request;
 // });
 Route::resource('/users', 'UserController');
 Route::resource('/bazars', 'BazarController');
+Route::resource('Admin','AdminController',['only' => ['index']]);
+Route::post('login','AdminController@login');
+Route::get('logout/{token}','AdminController@logout');
 
