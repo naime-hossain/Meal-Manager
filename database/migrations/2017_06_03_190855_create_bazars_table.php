@@ -16,7 +16,7 @@ class CreateBazarsTable extends Migration
         Schema::create('bazars', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('period_id');
-            $table->integer('user_id');
+            $table->integer('member_id');
             $table->integer('amount');
             $table->string('date');
             $table->string('note')->nullable();

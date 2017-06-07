@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bazar;
-use App\User;
+use App\Member;
 use App\Period;
 use JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
 class BazarController extends Controller
+
 {
        public function __construct()
    {
        // Apply the jwt.auth middleware to all methods in this controller
        // except for the authenticate method. We don't want to prevent
-       // the user from retrieving their token if they don't already have it
+       // the member from retrieving their token if they don't already have it
        $this->middleware('jwt.auth');
    }
 
@@ -42,12 +43,12 @@ class BazarController extends Controller
     public function create()
     {
         //
-        $users=User::pluck('name');
-        if (count($users)>0) {
+        $members=Member::pluck('name');
+        if (count($members)>0) {
             # code...
 
         }else{
-            $users='No user found';
+            $members='No member found';
         }
         $period=Period::where('status',1)->first();
 
@@ -58,7 +59,7 @@ class BazarController extends Controller
             $active_period='no active period available';
         }
 
-     return response()->json(['users'=>$users,'period'=>$active_period],200);
+     return response()->json(['members'=>$members,'period'=>$active_period],200);
     }
 
     /**
@@ -74,7 +75,7 @@ class BazarController extends Controller
         //
     $validator = \Validator::make($request->all(), [
         'period' => 'required', 
-        'user_name' => 'required',
+        'member_name' => 'required',
         'amount' => 'required',
         'date' => 'required',
         
@@ -87,12 +88,12 @@ class BazarController extends Controller
         //retriving period id from period name
         $period=Period::whereName($input['period'])->first();
         $input['period_id']=$period->id;
-        //retriving user_id from user name
-        $user=User::whereName($input['user_name'])->first();
-        $input['user_id']=$user->id;
+        //retriving member_id from member name
+        $member=Member::whereName($input['member_name'])->first();
+        $input['member_id']=$member->id;
 
         unset($input['period']);
-        unset($input['user_name']);
+        unset($input['member_name']);
         $bazar=Bazar::create($input);
         if ($bazar) {
             return response()->json(['content'=>$bazar,'message'=>'Bazar created succesfully'],200);   

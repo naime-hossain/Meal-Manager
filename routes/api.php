@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::resource('/users', 'UserController');
+Route::resource('/members', 'MemberController',['except' => ['create','show']]);
 Route::resource('/bazars', 'BazarController');
 Route::resource('Admin','AdminController',['only' => ['index']]);
 Route::post('login','AdminController@login');

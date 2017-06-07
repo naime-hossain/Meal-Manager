@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Member;
 use JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
-class UserController extends Controller
+class MemberController extends Controller
 {
 
       public function __construct()
    {
        // Apply the jwt.auth middleware to all methods in this controller
        // except for the authenticate method. We don't want to prevent
-       // the user from retrieving their token if they don't already have it
+       // the member from retrieving their token if they don't already have it
        $this->middleware('jwt.auth');
    }
     /**
@@ -25,12 +25,12 @@ class UserController extends Controller
     {
 
         //
-        $users=User::all();
-        if (!count($users)) {
+        $members=Member::all();
+        if (!count($members)) {
             # code...
-            return response()->json(['message'=>'No user forund'],401);
+            return response()->json(['message'=>'No member forund'],401);
         }
-        return response()->json(['content'=>$users],200);
+        return response()->json(['content'=>$members],200);
     }
 
     /**
@@ -53,7 +53,7 @@ class UserController extends Controller
     {
         //
           $validator = \Validator::make($request->all(), [
-        'name' => 'required|unique:users', 
+        'name' => 'required|unique:members', 
         
         
         ]);
@@ -63,12 +63,12 @@ class UserController extends Controller
     }
 
         $input=$request->all();
-        $user=User::create($input);
-        if ($user) {
-            return response()->json(['content'=>$user,'message'=>'user created succesfully'],200);   
+        $member=Member::create($input);
+        if ($member) {
+            return response()->json(['content'=>$member,'message'=>'member created succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No user created'],401);
+         return response()->json(['message'=>'No member created'],401);
         
 
          }
@@ -93,12 +93,12 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-          $user=User::find($id);
-         if (!$user) {
+          $member=Member::find($id);
+         if (!$member) {
             # code...
             return response()->json(['message'=>'No Bazar found'], 422);
         }
-    return response()->json(['content'=>$user,'message'=>'Bazar updated succesfully'],200); 
+    return response()->json(['content'=>$member,'message'=>'Bazar updated succesfully'],200); 
     }
 
     /**
@@ -112,17 +112,17 @@ class UserController extends Controller
     {
         //
         $input=$request->all();
-        $user=User::findOrFail($id);
+        $member=Member::findOrFail($id);
         if (!count($input)) {
             # code...
-             return response()->json(['message'=>'No user updated'],401);
+             return response()->json(['message'=>'No member updated'],401);
         }
-        if ($user->update($input)) {
+        if ($member->update($input)) {
             
-            return response()->json(['content'=>$user,'message'=>'user updated succesfully'],200);   
+            return response()->json(['content'=>$member,'message'=>'member updated succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No user updated'],401);
+         return response()->json(['message'=>'No member updated'],401);
     }
 
     /**
@@ -134,16 +134,21 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        $user=User::find($id);
-        if (!$user) {
+        $member=Member::find($id);
+        if (!$member) {
             # code...
-             return response()->json(['message'=>'No user found'],401);
+             return response()->json(['message'=>'No member found'],401);
         }
-        if ($user->delete()) {
-            
-            return response()->json(['content'=>$user,'message'=>'user deleted succesfully'],200);   
+        if ($member->delete()) {
+        	//delete the member bazar too
+             if ($member->bazars) {
+             	# code...
+             	 $member->bazars()->delete();
+             }
+           
+            return response()->json(['content'=>$member,'message'=>'member and his/her bazars deleted succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No user updated'],401);
+         return response()->json(['message'=>'No member updated'],401);
     }
 }

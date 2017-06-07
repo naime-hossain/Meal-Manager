@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use JWTAuth;
-use App\Admin;
+use App\User;
 use Tymon\JWTAuthExceptions\JWTException;
 class AdminController extends Controller
 {
    
 
+    public function __construct()
+   {
+       // Apply the jwt.auth middleware to all methods in this controller
+       // except for the login method. We don't want to prevent
+       // the user from retrieving their token if they don't already have it
+       $this->middleware('jwt.auth', ['except' => ['login','logout']]);
+   }
 
- public function authenticate(Request $request)
+ public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
