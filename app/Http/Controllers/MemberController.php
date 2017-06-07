@@ -28,7 +28,7 @@ class MemberController extends Controller
         $members=Member::all();
         if (!count($members)) {
             # code...
-            return response()->json(['message'=>'No member forund'],401);
+            return response()->json(['message'=>'No member forund'],404);
         }
         return response()->json(['content'=>$members],200);
     }
@@ -59,7 +59,7 @@ class MemberController extends Controller
         ]);
 
     if ($validator->fails()) {
-       return response()->json($validator->errors(), 422);
+       return response()->json($validator->errors(), 404);
     }
 
         $input=$request->all();
@@ -68,7 +68,7 @@ class MemberController extends Controller
             return response()->json(['content'=>$member,'message'=>'member created succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No member created'],401);
+         return response()->json(['message'=>'No member created'],404);
         
 
          }
@@ -82,6 +82,18 @@ class MemberController extends Controller
     public function show($id)
     {
         //
+          $member=Member::find($id);
+         if (!$member) {
+            # code...
+            return response()->json(['message'=>'No member found'], 404);
+         }
+         $member_bazars=$member->bazars;
+         if (count($member_bazars)<=0) {
+             # code...
+            return response()->json(['content'=>$member,'message'=>'no bazar available for this member'],200);
+         }
+
+      return response()->json(['content'=>$member,'bazars'=>$member_bazars],200); 
     }
 
     /**
@@ -96,9 +108,9 @@ class MemberController extends Controller
           $member=Member::find($id);
          if (!$member) {
             # code...
-            return response()->json(['message'=>'No Bazar found'], 422);
+            return response()->json(['message'=>'No member found'], 404);
         }
-    return response()->json(['content'=>$member,'message'=>'Bazar updated succesfully'],200); 
+    return response()->json(['content'=>$member],200); 
     }
 
     /**
@@ -115,14 +127,14 @@ class MemberController extends Controller
         $member=Member::findOrFail($id);
         if (!count($input)) {
             # code...
-             return response()->json(['message'=>'No member updated'],401);
+             return response()->json(['message'=>'No member updated'],404);
         }
         if ($member->update($input)) {
             
             return response()->json(['content'=>$member,'message'=>'member updated succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No member updated'],401);
+         return response()->json(['message'=>'No member updated'],404);
     }
 
     /**
@@ -137,11 +149,11 @@ class MemberController extends Controller
         $member=Member::find($id);
         if (!$member) {
             # code...
-             return response()->json(['message'=>'No member found'],401);
+             return response()->json(['message'=>'No member found'],404);
         }
         if ($member->delete()) {
         	//delete the member bazar too
-             if ($member->bazars) {
+             if (count($member->bazars)>0) {
              	# code...
              	 $member->bazars()->delete();
              }
@@ -149,6 +161,6 @@ class MemberController extends Controller
             return response()->json(['content'=>$member,'message'=>'member and his/her bazars deleted succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No member updated'],401);
+         return response()->json(['message'=>'No member updated'],404);
     }
 }

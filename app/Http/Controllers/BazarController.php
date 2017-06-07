@@ -27,10 +27,10 @@ class BazarController extends Controller
     public function index()
     {
         //
-        $bazars=Bazar::all();
+         $bazars=Bazar::all();
         if (!count($bazars)) {
             # code...
-            return response()->json(['message'=>'No Bazar forund'],401);
+            return response()->json(['message'=>'No Bazar forund'],404);
         }
         return response()->json(['content'=>$bazars],200);
     }
@@ -42,24 +42,7 @@ class BazarController extends Controller
      */
     public function create()
     {
-        //
-        $members=Member::pluck('name');
-        if (count($members)>0) {
-            # code...
-
-        }else{
-            $members='No member found';
-        }
-        $period=Period::where('status',1)->first();
-
-        if (count($period)>0) {
-            # code...
-            $active_period=$period->name;
-        }else{
-            $active_period='no active period available';
-        }
-
-     return response()->json(['members'=>$members,'period'=>$active_period],200);
+    
     }
 
     /**
@@ -82,7 +65,7 @@ class BazarController extends Controller
         ]);
 
     if ($validator->fails()) {
-       return response()->json($validator->errors(), 422);
+       return response()->json($validator->errors(), 404);
     }
         $input=$request->all();
         //retriving period id from period name
@@ -99,7 +82,7 @@ class BazarController extends Controller
             return response()->json(['content'=>$bazar,'message'=>'Bazar created succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No Bazar created'],401);
+         return response()->json(['message'=>'No Bazar created'],404);
         
 
          }
@@ -127,7 +110,7 @@ class BazarController extends Controller
         $bazar=Bazar::find($id);
          if (!$bazar) {
             # code...
-            return response()->json(['message'=>'No Bazar found'], 422);
+            return response()->json(['message'=>'No Bazar found'], 404);
         }
     return response()->json(['content'=>$bazar,'message'=>'Bazar updated succesfully'],200); 
 
@@ -147,18 +130,18 @@ class BazarController extends Controller
         $bazar=Bazar::find($id);
         if (!$bazar) {
             # code...
-            return response()->json(['message'=>'No Bazar found'], 422);
+            return response()->json(['message'=>'No Bazar found'], 404);
         }
         if (!count($input)) {
             # code...
-             return response()->json(['message'=>'No Bazar updated'],401);
+             return response()->json(['message'=>'No Bazar updated'],404);
         }
         if ($bazar->update($input)) {
             
             return response()->json(['content'=>$bazar,'message'=>'Bazar updated succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No Bazar updated'],401);
+         return response()->json(['message'=>'No Bazar updated'],404);
     }
 
     /**
@@ -173,14 +156,14 @@ class BazarController extends Controller
         $bazar=Bazar::find($id);
         if (!$bazar) {
             # code...
-             return response()->json(['message'=>'No Bazar found'],401);
+             return response()->json(['message'=>'No Bazar found'],404);
         }
         if ($bazar->delete()) {
             
             return response()->json(['content'=>$bazar,'message'=>'Bazar deleted succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No Bazar updated'],401);
+         return response()->json(['message'=>'No Bazar updated'],404);
     }
 }
 
