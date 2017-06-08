@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2017 at 03:48 AM
+-- Generation Time: Jun 08, 2017 at 10:43 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `bazars` (
   `id` int(10) UNSIGNED NOT NULL,
   `period_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `note` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -37,12 +37,27 @@ CREATE TABLE `bazars` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `bazars`
+-- Table structure for table `members`
 --
 
-INSERT INTO `bazars` (`id`, `period_id`, `user_id`, `amount`, `date`, `note`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 500, '06.05.17', 'my first bazar', '2017-06-05 12:21:12', '2017-06-05 12:21:12');
+CREATE TABLE `members` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deposit` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`id`, `name`, `deposit`, `created_at`, `updated_at`) VALUES
+(1, 'naime hossain', NULL, '2017-06-07 04:39:33', '2017-06-07 13:47:42'),
+(3, 'sakib', NULL, '2017-06-07 13:39:52', '2017-06-07 13:39:52');
 
 -- --------------------------------------------------------
 
@@ -61,10 +76,12 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(7, '2014_10_12_000000_create_users_table', 1),
-(8, '2014_10_12_100000_create_password_resets_table', 1),
-(9, '2017_06_03_190621_create_periods_table', 1),
-(10, '2017_06_03_190855_create_bazars_table', 1);
+(12, '2014_10_12_000000_create_users_table', 1),
+(13, '2014_10_12_100000_create_password_resets_table', 1),
+(14, '2017_06_03_190621_create_periods_table', 1),
+(15, '2017_06_03_190855_create_bazars_table', 1),
+(16, '2017_06_07_093329_create_admins_table', 1),
+(17, '2017_06_07_100056_create_members_table', 1);
 
 -- --------------------------------------------------------
 
@@ -87,7 +104,7 @@ CREATE TABLE `password_resets` (
 CREATE TABLE `periods` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -97,7 +114,10 @@ CREATE TABLE `periods` (
 --
 
 INSERT INTO `periods` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'january', 1, '2017-06-05 14:11:53', '2017-06-05 14:11:53');
+(1, 'january2017', 0, '2017-06-07 05:59:42', '2017-06-07 06:03:04'),
+(2, 'january2016', 0, '2017-06-07 06:03:04', '2017-06-07 22:28:08'),
+(3, 'may2017', 0, '2017-06-07 22:26:28', '2017-06-07 22:28:08'),
+(4, 'june2017', 1, '2017-06-07 22:28:08', '2017-06-07 22:28:08');
 
 -- --------------------------------------------------------
 
@@ -108,6 +128,8 @@ INSERT INTO `periods` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUE
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -116,8 +138,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'naime hossain', '2017-06-05 09:57:21', '2017-06-05 10:26:24');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@yahoo.com', '$2y$10$bSxgQjqItYhGmp6GUKzr5OH0aveJmDbmNK/qNzK17EQ.wVQarOgja', '2017-06-07 04:38:40', '2017-06-07 04:38:40');
 
 --
 -- Indexes for dumped tables
@@ -127,6 +149,12 @@ INSERT INTO `users` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- Indexes for table `bazars`
 --
 ALTER TABLE `bazars`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `members`
+--
+ALTER TABLE `members`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -163,15 +191,20 @@ ALTER TABLE `users`
 ALTER TABLE `bazars`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `members`
+--
+ALTER TABLE `members`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `periods`
 --
 ALTER TABLE `periods`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
