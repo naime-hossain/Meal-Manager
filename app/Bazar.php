@@ -14,7 +14,7 @@ class Bazar extends Model
      */
     protected $fillable = [
      'period_id',
-	'user_id',
+	'member_id',
 	'amount',
 	'date',
 	'note'
@@ -25,10 +25,10 @@ class Bazar extends Model
     	 *
     	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     	 */
-    	public function user()
+    	public function member()
     	{
     		// belongsTo(RelatedModel, foreignKey = user_id, keyOnRelatedModel = id)
-    		return $this->belongsTo('App\User');
+    		return $this->belongsTo('App\Member');
     	}
     /**
     	 * Bazar belongs to period.

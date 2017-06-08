@@ -96,6 +96,13 @@ class BazarController extends Controller
     public function show($id)
     {
         //
+          $bazar=Bazar::find($id);
+          $bazar['member_name']=$bazar->member->name;
+         if (!$bazar) {
+            # code...
+            return response()->json(['message'=>'No Bazar found'], 404);
+        }
+    return response()->json(['content'=>$bazar,'message'=>'Bazar updated succesfully'],200); 
     }
 
     /**
@@ -136,6 +143,26 @@ class BazarController extends Controller
             # code...
              return response()->json(['message'=>'No Bazar updated'],404);
         }
+
+        //if period and user change
+        
+       
+        if ($input['period']) {
+            # code...
+              //retriving period id from period name
+        $period=Period::whereName($input['period'])->first();
+        $input['period_id']=$period->id;
+        }
+
+          if ($input['member_name']) {
+             //retriving member_id from member name
+        $member=Member::whereName($input['member_name'])->first();
+        $input['member_id']=$member->id;
+        }
+
+        unset($input['period']);
+        unset($input['member_name']);
+
         if ($bazar->update($input)) {
             
             return response()->json(['content'=>$bazar,'message'=>'Bazar updated succesfully'],200);   
@@ -163,7 +190,7 @@ class BazarController extends Controller
             return response()->json(['content'=>$bazar,'message'=>'Bazar deleted succesfully'],200);   
              
         }
-         return response()->json(['message'=>'No Bazar updated'],404);
+         return response()->json(['message'=>'No Bazar deleted'],404);
     }
 }
 

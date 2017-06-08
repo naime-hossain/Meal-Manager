@@ -73,7 +73,7 @@ class PeriodController extends Controller
             foreach ($periods as $period) {
         if ($period->id!=$new_period->id) {
             # code...
-            if ($period->id==1) {
+            if ($period->status==1) {
                 # code...
             $period->status=0;
             $period->save();
