@@ -13,4 +13,14 @@ class Period extends Model
      * @var array
      */
     protected $fillable = ['name','status'];
+    /**
+     * Period has many Bazars.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bazars()
+    {
+    	// hasMany(RelatedModel, foreignKeyOnRelatedModel = period_id, localKey = id)
+    	return $this->hasMany("App\Bazar");
+    }
 }

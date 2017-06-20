@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 Route::resource('/members', 'MemberController',['except' => ['create','edit']]);
 Route::resource('/bazars', 'BazarController',['except' => ['edit']]);
 Route::resource('/periods', 'PeriodController',['except' => ['create','update']]);
+//find bazar of specific user of specific period
+Route::get('/periods/{period_id}/{memeber_id}', 'PeriodController@showMemberBazar');
 // Route::resource('Admin','AdminController',['only' => ['index']]);
 Route::post('login','AdminController@login');
 Route::get('logout/{token}','AdminController@logout');

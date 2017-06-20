@@ -36,6 +36,31 @@ class PeriodController extends Controller
         return response()->json(['content'=>$periods],200);
     }
 
+  /**
+     * Display the specified user bazars of specific period.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showMemberBazar($period_id,$member_id)
+    {
+        //
+             $period=Period::find($period_id);
+         if (!$period) {
+            # code...
+            return response()->json(['message'=>'No period found'], 404);
+         }
+         $memberBazars=$period->bazars()->whereMember_id($member_id)->get();
+         if (count($memberBazars)<=0) {
+             # code...
+            return response()->json(['content'=>$period,'message'=>'no bazar available for this member in this period'],200);
+         }
+
+      return response()->json(['content'=>$period,'bazars'=>$memberBazars],200);
+
+
+  }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -80,6 +80,10 @@
 <p>Route:meal.dev/api/periods/{id}?token=</p>
 <p>Request type:Delete ,id is period id</p>
 
+<h2>show all bazar of a  member in asingle period </h2>
+<p>Route:meal.dev/api/periods/{period_id}/{user_id}?token=</p>
+<p>Request type:GET</p>
+
 
 
 
