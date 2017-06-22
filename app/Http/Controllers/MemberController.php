@@ -72,6 +72,7 @@ class MemberController extends Controller
         
 
          }
+      
 
     /**
      * Display the specified resource.
