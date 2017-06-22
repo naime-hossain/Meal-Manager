@@ -27,7 +27,7 @@
 <p>Request type:GET ,id is member id</p>
 
 <h2>Update a member  info Api</h2>
-<p>Route:meal.dev/api/members/{id}?name=&token=</p>
+<p>Route:meal.dev/api/members/{id}?name=&meal_count=&token=</p>
 <p>Request type:PUT ,id is member id</p>
 
 <h2>delete a member info and his/her bazars Api</h2>

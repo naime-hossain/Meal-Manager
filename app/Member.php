@@ -8,7 +8,7 @@ class Member extends Model
 {
     //
      protected $fillable = [
-        'name','deposit'
+        'name','deposit','meal_count'
     ];
 
 
