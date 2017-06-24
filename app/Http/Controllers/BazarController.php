@@ -57,8 +57,8 @@ class BazarController extends Controller
 
         //
     $validator = \Validator::make($request->all(), [
-        'period' => 'required', 
-        'member_name' => 'required',
+        'period_id' => 'required', 
+        'member_id' => 'required',
         'amount' => 'required',
         'date' => 'required',
         
@@ -68,15 +68,15 @@ class BazarController extends Controller
        return response()->json($validator->errors(), 404);
     }
         $input=$request->all();
-        //retriving period id from period name
-        $period=Period::whereName($input['period'])->first();
-        $input['period_id']=$period->id;
+        // //retriving period id from period name
+        // $period=Period::find($input['period_id']);
+        // $input['period_id']=$period->id;
         //retriving member_id from member name
-        $member=Member::whereName($input['member_name'])->first();
-        $input['member_id']=$member->id;
+        // $member=Member::whereName($input['member_id'])->first();
+        // $input['member_id']=$member->id;
 
-        unset($input['period']);
-        unset($input['member_name']);
+        // unset($input['period']);
+        // unset($input['member_name']);
         $bazar=Bazar::create($input);
         if ($bazar) {
             return response()->json(['content'=>$bazar,'message'=>'Bazar created succesfully'],200);   
@@ -147,21 +147,21 @@ class BazarController extends Controller
         //if period and user change
         
        
-        if ($input['period']) {
-            # code...
-              //retriving period id from period name
-        $period=Period::whereName($input['period'])->first();
-        $input['period_id']=$period->id;
-        }
+        // if ($input['period']) {
+        //     # code...
+        //       //retriving period id from period name
+        // $period=Period::whereName($input['period'])->first();
+        // $input['period_id']=$period->id;
+        // }
 
-          if ($input['member_name']) {
-             //retriving member_id from member name
-        $member=Member::whereName($input['member_name'])->first();
-        $input['member_id']=$member->id;
-        }
+        //   if ($input['member_name']) {
+        //      //retriving member_id from member name
+        // $member=Member::whereName($input['member_name'])->first();
+        // $input['member_id']=$member->id;
+        // }
 
-        unset($input['period']);
-        unset($input['member_name']);
+        // unset($input['period']);
+        // unset($input['member_name']);
 
         if ($bazar->update($input)) {
             
