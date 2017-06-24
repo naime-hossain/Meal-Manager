@@ -41,7 +41,7 @@
 <p>Request type:GET </p>
 
 <h2>Crete new bazar Api</h2>
-<p>Route:meal.dev/api/bazars?member_id=&period_id=&amount=0&date=&token=</p>
+<p>Route:meal.dev/api/bazars?member_name=&period=&amount=0&date=&token=</p>
 <p>Request type:POst </p>
 <p>if user has note than pass it Via note=</p>
 
@@ -51,7 +51,7 @@
 <p>Request type:GET ,id is bazar id</p>
 
 <h2>Update a  bazar info Api</h2>
-<p>Route:meal.dev/api/bazars/{id}?member_id=&period_id=&amount=&date=&token=</p>
+<p>Route:meal.dev/api/bazars/{id}?member_id=&period=&amount=&date=&token=</p>
 <p>Request type:PUT ,id is bazar id</p>
 
 <h2>delete a bazar  Api</h2>
