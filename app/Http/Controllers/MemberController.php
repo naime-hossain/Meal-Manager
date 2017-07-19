@@ -25,8 +25,8 @@ class MemberController extends Controller
     public function index()
     {
 
-        //
-        $members=Auth::user();
+        $user=Auth::user();
+        $members=$user->members;
         if (!count($members)) {
             # code...
             return response()->json(['message'=>'No member forund'],404);
@@ -58,13 +58,14 @@ class MemberController extends Controller
         
         
         ]);
+          $user=Auth::user();
 
     if ($validator->fails()) {
        return response()->json($validator->errors(), 404);
     }
 
         $input=$request->all();
-        $member=Member::create($input);
+        $member=$user->members()->create($input);
         if ($member) {
             return response()->json(['content'=>$member,'message'=>'member created succesfully'],200);   
              
@@ -76,15 +77,15 @@ class MemberController extends Controller
       
 
     /**
-     * Display the specified resource.
+     * dispaly all bazars of a member.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
-          $member=Member::find($id);
+        $user=Auth::user();
+          $member=$user->members()->whereId($id)->first();
          if (!$member) {
             # code...
             return response()->json(['message'=>'No member found'], 404);
@@ -98,6 +99,7 @@ class MemberController extends Controller
       return response()->json(['content'=>$member,'bazars'=>$member_bazars],200); 
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -107,7 +109,8 @@ class MemberController extends Controller
     public function edit($id)
     {
         //
-          $member=Member::find($id);
+          $user=Auth::user();
+          $member=$user->members()->whereId($id)->first();
          if (!$member) {
             # code...
             return response()->json(['message'=>'No member found'], 404);
@@ -126,7 +129,8 @@ class MemberController extends Controller
     {
         //
         $input=$request->all();
-        $member=Member::findOrFail($id);
+           $user=Auth::user();
+          $member=$user->members()->whereId($id)->first();
         if (!count($input)) {
             # code...
              return response()->json(['message'=>'No member updated'],404);
@@ -148,7 +152,8 @@ class MemberController extends Controller
     public function destroy($id)
     {
         //
-        $member=Member::find($id);
+          $user=Auth::user();
+          $member=$user->members()->whereId($id)->first();
         if (!$member) {
             # code...
              return response()->json(['message'=>'No member found'],404);

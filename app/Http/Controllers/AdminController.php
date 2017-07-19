@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuthExceptions\JWTException;
 class AdminController extends Controller
 {

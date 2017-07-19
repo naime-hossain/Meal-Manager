@@ -8,6 +8,7 @@ use App\Member;
 use App\Period;
 use JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
+use Illuminate\Support\Facades\Auth;
 class BazarController extends Controller
 
 {
@@ -26,7 +27,9 @@ class BazarController extends Controller
      */
     public function index()
     {
-        //
+        // $user=Auth::user();
+           
+        //  $periods=$user->periods;
          $bazars=Bazar::all();
         if (!count($bazars)) {
             # code...
@@ -55,7 +58,9 @@ class BazarController extends Controller
     {
 
 
-        //
+       $user=Auth::user();
+           
+        
     $validator = \Validator::make($request->all(), [
         'period' => 'required', 
         'member_name' => 'required',
@@ -69,10 +74,10 @@ class BazarController extends Controller
     }
         $input=$request->all();
         //retriving period id from period name
-        $period=Period::whereName($input['period'])->first();
+        $period=$user->periods()->whereName($input['period'])->first();
         $input['period_id']=$period->id;
         //retriving member_id from member name
-        $member=Member::whereName($input['member_name'])->first();
+        $member=$user->members()->whereName($input['member_name'])->first();
         $input['member_id']=$member->id;
 
         unset($input['period']);
@@ -88,7 +93,7 @@ class BazarController extends Controller
          }
 
     /**
-     * Display the specified resource.
+     * Display the specified bazar details.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -133,6 +138,9 @@ class BazarController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user=Auth::user();
+           
+        
         $input=$request->all();
         $bazar=Bazar::find($id);
         if (!$bazar) {
@@ -150,13 +158,14 @@ class BazarController extends Controller
         if ($input['period']) {
             # code...
               //retriving period id from period name
-        $period=Period::whereName($input['period'])->first();
+        
+    $period=$user->periods()->whereId($input['period'])->first();
         $input['period_id']=$period->id;
         }
 
           if ($input['member_name']) {
              //retriving member_id from member name
-        $member=Member::whereName($input['member_name'])->first();
+        $member=$user->members()->whereName($input['member_name'])->first();
         $input['member_id']=$member->id;
         }
 

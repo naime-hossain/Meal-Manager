@@ -8,6 +8,7 @@ use App\Member;
 use App\Period;
 use JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
+use Illuminate\Support\Facades\Auth;
 class PeriodController extends Controller
 {
 
@@ -27,8 +28,9 @@ class PeriodController extends Controller
     public function index()
     {
         //
-          
-         $periods=Period::all();
+         $user=Auth::user();
+           
+         $periods=$user->periods;
         if (!count($periods)) {
             # code...
             return response()->json(['message'=>'No Period forund'],404);
@@ -44,8 +46,10 @@ class PeriodController extends Controller
      */
     public function showMemberBazar($period_id,$member_id)
     {
-        //
-             $period=Period::find($period_id);
+        $user=Auth::user();
+           
+         $period=$user->periods()->whereId($period_id)->first();
+       
          if (!$period) {
             # code...
             return response()->json(['message'=>'No period found'], 404);
@@ -79,23 +83,26 @@ class PeriodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
         $validator = \Validator::make($request->all(), [
         'name' => 'required|unique:periods', 
         
         ]);
+         $user=Auth::user();
+           
+         
 
     if ($validator->fails()) {
        return response()->json($validator->errors(), 404);
     }
     $input=$request->all();
-    if ($new_period=Period::create($input)) {
+    if ($new_period=$user->periods()->create($input)) {
         # code...
     //make all the period inactive if new is created and if periods exits.
-    $periods=Period::all();
+    $periods=$user->periods;
     if (count($periods)>0) {
         # code...
-            foreach ($periods as $period) {
+    foreach ($periods as $period) {
         if ($period->id!=$new_period->id) {
             # code...
             if ($period->status==1) {
@@ -123,12 +130,15 @@ class PeriodController extends Controller
     public function show($id)
     {
         //
-          $period=Period::find($id);
+          $user=Auth::user();
+           
+         $period=$user->periods()->whereId($id)->first();
+
          if (!$period) {
             # code...
             return response()->json(['message'=>'No period found'], 404);
          }
-         $bazars=Bazar::where('period_id',$id)->get();
+         $bazars=$period->bazars;
          if (count($bazars)<=0) {
              # code...
             return response()->json(['content'=>$period,'message'=>'no bazar available for this period'],200);
@@ -169,12 +179,14 @@ class PeriodController extends Controller
     public function destroy($id)
     {
         //
-        $period=Period::find($id);
+         $user=Auth::user();
+           
+         $period=$user->periods()->whereId($id)->first();
         if(!$period){
             return response()->json(['message'=>'no such period available'],404);
         }
         //find all the bazar of this period
-        $bazars=Bazar::where('period_id',$id);
+        $bazars=$period->bazars;
         if ($period->delete()) {
 
             if (count($bazars)>0) {
