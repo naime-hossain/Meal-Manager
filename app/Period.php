@@ -12,7 +12,7 @@ class Period extends Model
      *
      * @var array
      */
-    protected $fillable = ['name','status'];
+    protected $fillable = ['name','status','user_id'];
     /**
      * Period has many Bazars.
      *
@@ -22,5 +22,16 @@ class Period extends Model
     {
     	// hasMany(RelatedModel, foreignKeyOnRelatedModel = period_id, localKey = id)
     	return $this->hasMany("App\Bazar");
+    }
+
+    /**
+     * Period belongs to User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        // belongsTo(RelatedModel, foreignKey = user_id, keyOnRelatedModel = id)
+        return $this->belongsTo(User::class);
     }
 }

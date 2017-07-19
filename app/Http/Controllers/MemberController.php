@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Member;
 use JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
+use Illuminate\Support\Facades\Auth;
 class MemberController extends Controller
 {
 
@@ -25,7 +26,7 @@ class MemberController extends Controller
     {
 
         //
-        $members=Member::all();
+        $members=Auth::user();
         if (!count($members)) {
             # code...
             return response()->json(['message'=>'No member forund'],404);

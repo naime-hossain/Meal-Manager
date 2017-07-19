@@ -17,6 +17,7 @@ class CreatePeriodsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('status')->default(1);
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

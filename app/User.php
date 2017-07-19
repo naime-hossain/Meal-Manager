@@ -26,5 +26,27 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * User has many Members.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function members()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
+        return $this->hasMany(Member::class);
+    }
+
+    /**
+     * User has many Periods.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function periods()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
+        return $this->hasMany(Period::class);
+    }
   
 }

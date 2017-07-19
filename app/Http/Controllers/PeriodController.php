@@ -115,7 +115,7 @@ class PeriodController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display all bazars of a single preiod.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

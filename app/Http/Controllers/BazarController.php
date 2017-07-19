@@ -102,7 +102,7 @@ class BazarController extends Controller
             # code...
             return response()->json(['message'=>'No Bazar found'], 404);
         }
-    return response()->json(['content'=>$bazar,'message'=>'Bazar updated succesfully'],200); 
+    return response()->json(['content'=>$bazar],200); 
     }
 
     /**
