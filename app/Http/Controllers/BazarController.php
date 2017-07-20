@@ -92,7 +92,7 @@ class BazarController extends Controller
                 }
                  return response()->json(['message'=>'No Bazar created'],404);
                  }
-                 return response()->json(['message'=>'member not found'],404);
+                 return response()->json(['message'=>'memebr not found'],404);
               
          }
            return response()->json(['message'=>'period not found'],404);
@@ -176,14 +176,25 @@ class BazarController extends Controller
             # code...
               //retriving period id from period name
         
-         $period=$user->periods()->whereId($input['period'])->first();
-        $input['period_id']=$period->id;
+          $period=$user->periods()->whereName($input['period'])->first();
+
+         if ($period) {
+             $input['period_id']=$period->id;
+         }else{
+            return response()->json(['message'=>'period is not found'],404);
+         }
+        
         }
 
           if (isset($input['member_name'])) {
              //retriving member_id from member name
         $member=$user->members()->whereName($input['member_name'])->first();
-        $input['member_id']=$member->id;
+           if ($member) {
+              $input['member_id']=$member->id;
+         }else{
+            return response()->json(['message'=>'member is not found'],404);
+         }
+       
         }
 
         unset($input['period']);

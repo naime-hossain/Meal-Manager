@@ -142,6 +142,14 @@ class MemberController extends Controller
             # code...
              return response()->json(['message'=>'No member updated'],404);
         }
+
+         $is_exist_member=$user->members()->whereName($request->name)->first();
+     ///check if member is exists or not
+     if ($is_exist_member) {
+        return response()->json(['message'=>'member already created,try different name'],404);
+
+         }
+     else{
         if ($member->update($input)) {
             
             return response()->json(['content'=>$member,'message'=>'member updated succesfully'],200);   
@@ -149,6 +157,7 @@ class MemberController extends Controller
         }
          return response()->json(['message'=>'No member updated'],404);
     }
+}
 
     /**
      * Remove the specified resource from storage.
