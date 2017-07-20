@@ -48,5 +48,15 @@ class User extends Authenticatable
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
         return $this->hasMany(Period::class);
     }
+
+ /**
+  * User has many Bazars throgh.
+  *
+  * @return \Illuminate\Database\Eloquent\Relations\HasMany
+  */
+ public function bazars()
+ {
+     return $this->hasManyThrough('App\Bazar','App\Period');
+ }
   
 }

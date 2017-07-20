@@ -27,10 +27,10 @@ class BazarController extends Controller
      */
     public function index()
     {
-        // $user=Auth::user();
+        $user=Auth::user();
            
-        //  $periods=$user->periods;
-         $bazars=Bazar::all();
+         
+         $bazars=$user->bazars;
         if (!count($bazars)) {
             # code...
             return response()->json(['message'=>'No Bazar forund'],404);
@@ -75,19 +75,29 @@ class BazarController extends Controller
         $input=$request->all();
         //retriving period id from period name
         $period=$user->periods()->whereName($input['period'])->first();
-        $input['period_id']=$period->id;
-        //retriving member_id from member name
-        $member=$user->members()->whereName($input['member_name'])->first();
-        $input['member_id']=$member->id;
+         if ($period) {
+                    $input['period_id']=$period->id;
+                //retriving member_id from member name
+               $member=$user->members()->whereName($input['member_name'])->first();
 
-        unset($input['period']);
-        unset($input['member_name']);
-        $bazar=Bazar::create($input);
-        if ($bazar) {
-            return response()->json(['content'=>$bazar,'message'=>'Bazar created succesfully'],200);   
-             
-        }
-         return response()->json(['message'=>'No Bazar created'],404);
+                 if ($member) {
+                      $input['member_id']=$member->id;
+
+                unset($input['period']);
+                unset($input['member_name']);
+                $bazar=Bazar::create($input);
+                if ($bazar) {
+                    return response()->json(['content'=>$bazar,'message'=>'Bazar created succesfully'],200);   
+                     
+                }
+                 return response()->json(['message'=>'No Bazar created'],404);
+                 }
+                 return response()->json(['message'=>'member not found'],404);
+              
+         }
+           return response()->json(['message'=>'period not found'],404);
+      
+       
         
 
          }
@@ -101,12 +111,17 @@ class BazarController extends Controller
     public function show($id)
     {
         //
-          $bazar=Bazar::find($id);
-          $bazar['member_name']=$bazar->member->name;
+         $user=Auth::user();
+           $bazar=$user->bazars()->find($id);
+       
+         
          if (!$bazar) {
             # code...
             return response()->json(['message'=>'No Bazar found'], 404);
         }
+           // $bazar['member_name']=$bazar->member->name;
+         /* without apbe line laravel add member info just doing this?*/
+        $member_name=$bazar->member->name;
     return response()->json(['content'=>$bazar],200); 
     }
 
@@ -119,7 +134,8 @@ class BazarController extends Controller
     public function edit($id)
     {
         //
-        $bazar=Bazar::find($id);
+            $user=Auth::user();
+          $bazar=$user->bazars()->whereId($id)->first();
          if (!$bazar) {
             # code...
             return response()->json(['message'=>'No Bazar found'], 404);
@@ -138,11 +154,12 @@ class BazarController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $user=Auth::user();
+           $user=Auth::user();
+          $bazar=$user->bazars()->find($id);
            
         
         $input=$request->all();
-        $bazar=Bazar::find($id);
+        
         if (!$bazar) {
             # code...
             return response()->json(['message'=>'No Bazar found'], 404);
@@ -155,15 +172,15 @@ class BazarController extends Controller
         //if period and user change
         
        
-        if ($input['period']) {
+        if (isset($input['period'])) {
             # code...
               //retriving period id from period name
         
-    $period=$user->periods()->whereId($input['period'])->first();
+         $period=$user->periods()->whereId($input['period'])->first();
         $input['period_id']=$period->id;
         }
 
-          if ($input['member_name']) {
+          if (isset($input['member_name'])) {
              //retriving member_id from member name
         $member=$user->members()->whereName($input['member_name'])->first();
         $input['member_id']=$member->id;
@@ -189,7 +206,8 @@ class BazarController extends Controller
     public function destroy($id)
     {
         //
-        $bazar=Bazar::find($id);
+            $user=Auth::user();
+          $bazar=$user->bazars()->find($id);
         if (!$bazar) {
             # code...
              return response()->json(['message'=>'No Bazar found'],404);

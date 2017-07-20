@@ -133,7 +133,7 @@ class PeriodController extends Controller
           $user=Auth::user();
            
          $period=$user->periods()->whereId($id)->first();
-
+          
          if (!$period) {
             # code...
             return response()->json(['message'=>'No period found'], 404);
@@ -144,7 +144,9 @@ class PeriodController extends Controller
             return response()->json(['content'=>$period,'message'=>'no bazar available for this period'],200);
          }
 
-      return response()->json(['content'=>$period,'bazars'=>$bazars],200);
+      // return response()->json(['content'=>$period,'bazars'=>$bazars],200);
+         /* without avobe line laravel add bazars info just doing $bazars=$period->bazars;?*/
+      return response()->json(['content'=>$period],200);
     }
 
     /**
