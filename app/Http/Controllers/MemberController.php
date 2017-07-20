@@ -54,7 +54,7 @@ class MemberController extends Controller
     {
         //
           $validator = \Validator::make($request->all(), [
-        'name' => 'required|unique:members', 
+        'name' => 'required', 
         
         
         ]);
@@ -63,7 +63,13 @@ class MemberController extends Controller
     if ($validator->fails()) {
        return response()->json($validator->errors(), 404);
     }
+        $is_exist_member=$user->members()->whereName($request->name)->first();
+     ///check if member is exists or not
+     if ($is_exist_member) {
+        return response()->json(['message'=>'member already created,try different name'],404);
 
+         }
+     else{
         $input=$request->all();
         $member=$user->members()->create($input);
         if ($member) {
@@ -72,7 +78,7 @@ class MemberController extends Controller
         }
          return response()->json(['message'=>'No member created'],404);
         
-
+     }
          }
       
 
@@ -96,7 +102,8 @@ class MemberController extends Controller
             return response()->json(['content'=>$member,'message'=>'no bazar available for this member'],200);
          }
 
-      return response()->json(['content'=>$member,'bazars'=>$member_bazars],200); 
+      // return response()->json(['content'=>$member,'bazars'=>$member_bazars],200);
+      return response()->json(['content'=>$member],200); 
     }
 
 

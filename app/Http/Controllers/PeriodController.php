@@ -62,6 +62,7 @@ class PeriodController extends Controller
 
       return response()->json(['content'=>$period,'bazars'=>$memberBazars],200);
 
+ 
 
   }
 
@@ -85,7 +86,7 @@ class PeriodController extends Controller
     {
         
         $validator = \Validator::make($request->all(), [
-        'name' => 'required|unique:periods', 
+        'name' => 'required', 
         
         ]);
          $user=Auth::user();
@@ -96,7 +97,15 @@ class PeriodController extends Controller
        return response()->json($validator->errors(), 404);
     }
     $input=$request->all();
-    if ($new_period=$user->periods()->create($input)) {
+    
+    $is_exist_period=$user->periods()->whereName($request->name)->first();
+     ///check if period is exists or not
+     if ($is_exist_period) {
+        return response()->json(['message'=>'period already created,try different name'],404);
+
+         }
+     else{
+           if ($new_period=$user->periods()->create($input)) {
         # code...
     //make all the period inactive if new is created and if periods exits.
     $periods=$user->periods;
@@ -113,11 +122,14 @@ class PeriodController extends Controller
          
         }
      }
+
     }
      return response()->json(['content'=>$new_period,'message'=>'period created succesfully'],200);
     }
 
   return response()->json(['message'=>'period not created succesfully'],404);
+     }
+ 
 
     }
 
