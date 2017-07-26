@@ -4,7 +4,22 @@
 <h1>Authentication API's</h1>
 <h2>Log in Api</h2>
 <p>Route:meal.dev/api/login?email=&password=</p>
-<p>Request type:Post with email and password</p>
+ #parameters
+    {
+      email:admin@yahoo.com
+      passsword:admin
+     }
+         Sample requet body
+    {
+        "LoggerID": 10,
+        "DeviceID": "0660AF02",
+        "LogDateTime": "2016-08-17 13:48:57.115331",
+        "Distance": 20
+    }
+  #output
+  {
+              "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL21lYWwuZGV2XC9hcGlcL2xvZ2luIiwiaWF0IjoxNTAxMDYxMzQzLCJleHAiOjE1MDEwNjQ5NDMsIm5iZiI6MTUwMTA2MTM0MywianRpIjoiaGxJT0FOMkZlUUlWSWY0bSJ9.QhVnJuF85mTNWeuUnGI7rrBX5jrpArdKD9nIBaG1ZtA"
+}
 
 <h2>Logout in Api</h2>
 <p>Route:meal.dev/api/logout/{token}</p>
