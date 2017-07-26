@@ -452,6 +452,23 @@ Request type:PUT ,id is bazar id
 	     
      }
      
+   output
+   
+	   {
+		    "content": {
+			"id": 5,
+			"period_id": 2,
+			"member_id": 1,
+			"amount": "800",
+			"date": "20/5/2017",
+			"note": null,
+			"created_at": "2017-07-26 11:35:05",
+			"updated_at": "2017-07-26 16:32:33",
+			"user_id": 1
+		    },
+		    "message": "Bazar updated succesfully"
+	}
+     
 
 ## delete a bazar  Api
 
@@ -467,6 +484,23 @@ Request type:Delete ,id is bazar id
 	    
 	     
        }
+  
+  output
+  
+	  {
+		    "content": {
+			"id": 5,
+			"period_id": 2,
+			"member_id": 1,
+			"amount": 800,
+			"date": "20/5/2017",
+			"note": null,
+			"created_at": "2017-07-26 11:35:05",
+			"updated_at": "2017-07-26 16:32:33",
+			"user_id": 1
+		    },
+		    "message": "Bazar deleted succesfully"
+	}
        
 
 # Period API's
@@ -486,6 +520,37 @@ Request type:GET
 	     
      }
      
+  output
+  
+	  {
+		    "content": [
+			{
+			    "id": 2,
+			    "name": "july",
+			    "status": 0,
+			    "user_id": 1,
+			    "created_at": "2017-07-19 19:53:23",
+			    "updated_at": "2017-07-20 09:45:14"
+			},
+			{
+			    "id": 3,
+			    "name": "agust",
+			    "status": 0,
+			    "user_id": 1,
+			    "created_at": "2017-07-20 09:45:14",
+			    "updated_at": "2017-07-20 10:13:14"
+			},
+			{
+			    "id": 4,
+			    "name": "june2017",
+			    "status": 1,
+			    "user_id": 1,
+			    "created_at": "2017-07-20 10:13:14",
+			    "updated_at": "2017-07-20 10:13:14"
+			}
+		    ]
+	}
+     
 
 ## Crete new period Api
 
@@ -503,6 +568,22 @@ Request type:POst
 	     
      }
      
+  output
+  
+	  {
+		    "content": {
+			"name": "august",
+			"user_id": 1,
+			"updated_at": "2017-07-26 16:37:19",
+			"created_at": "2017-07-26 16:37:19",
+			"id": 5
+		    },
+		    "message": "period created succesfully"
+	}
+	
+## update period api
+
+     
      
 
 ## show all bazar of a  single period 
@@ -519,6 +600,41 @@ Request type:GET ,id is period id
 	   
 	     
       }
+      
+  output
+  
+	  {
+		    "content": {
+			"id": 2,
+			"name": "july",
+			"status": 0,
+			"user_id": 1,
+			"created_at": "2017-07-19 19:53:23",
+			"updated_at": "2017-07-20 09:45:14",
+			"bazars": [
+			    {
+				"id": 3,
+				"period_id": 2,
+				"member_id": 1,
+				"amount": 250,
+				"date": "12.2.17",
+				"note": null,
+				"created_at": "2017-07-20 09:04:02",
+				"updated_at": "2017-07-20 09:04:02"
+			    },
+			    {
+				"id": 4,
+				"period_id": 2,
+				"member_id": 1,
+				"amount": 600,
+				"date": "20/5/2017",
+				"note": null,
+				"created_at": "2017-07-20 09:58:27",
+				"updated_at": "2017-07-20 09:58:27"
+			    }
+			]
+		    }
+	}
 
 
 ## delete a period  Api
@@ -535,6 +651,12 @@ Request type:Delete ,id is period id
 	    
 	     
      }
+     
+ output
+ 
+	 {
+	   	 "message": "agust period and all bazars deleted"
+	}
      
 
 
