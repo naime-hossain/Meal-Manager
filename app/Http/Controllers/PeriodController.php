@@ -196,7 +196,8 @@ class PeriodController extends Controller
          $user=Auth::user();
            
          $period=$user->periods()->whereId($id)->first();
-        if(!$period){
+        if(!$period)
+        {
             return response()->json(['message'=>'no such period available'],404);
         }
         //find all the bazar of this period
