@@ -6,8 +6,8 @@
 Route:meal.dev/api/login?email=&password=
  request parameters
     {
-        'email':admin@yahoo.com
-        'passsword':admin
+        "email":"admin@yahoo.com"
+        "passsword":"admin"
      }
          
     {
