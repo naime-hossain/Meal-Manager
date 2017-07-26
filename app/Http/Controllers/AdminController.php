@@ -39,6 +39,46 @@ class AdminController extends Controller
     }
 
 
+//register user
+public function register(Request $request){
+
+  $validator = \Validator::make($request->all(), [
+         'name' => 'required|string|max:255',
+         'email' => 'required|string|email|max:255|unique:users',
+         'password' => 'required|string|min:6|confirmed',
+        
+        ]);
+
+    if ($validator->fails()) {
+       return response()->json($validator->errors(), 404);
+    }
+    $user= User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+        ]);
+
+    //login the user
+    if ($user) {
+        $input=$request->only('email', 'password');
+        try {
+            // verify the input and create a token for the user
+            if (! $token = JWTAuth::attempt($input)) {
+                return response()->json(['error' => 'invalid_credentials'], 401);
+            }
+        } catch (JWTException $e) {
+            // something went wrong
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+
+        // if no errors are encountered we can return a JWT
+        return response()->json(compact('token'));
+    }
+
+}
+
+
+
      public function logout($token)
     {
         //

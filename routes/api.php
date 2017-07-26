@@ -22,6 +22,7 @@ Route::resource('/periods', 'PeriodController',['except' => ['create','update']]
 //find bazar of specific user of specific period
 Route::get('/periods/{period_id}/{memeber_id}', 'PeriodController@showMemberBazar');
 // Route::resource('Admin','AdminController',['only' => ['index']]);
+Route::post('register','AdminController@register');
 Route::post('login','AdminController@login');
 Route::get('logout/{token}','AdminController@logout');
 
