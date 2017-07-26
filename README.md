@@ -1,13 +1,13 @@
 
-#Documentation of API's
+#Documentation of API's not
 
 ##Authentication API's
 ##Log in Api
 Route:meal.dev/api/login?email=&password=
  request parameters
     {
-        "email":"admin@yahoo.com"
-        "passsword":"admin"
+	        "email":"admin@yahoo.com"
+	        "passsword":"admin"
      }
          
     {
