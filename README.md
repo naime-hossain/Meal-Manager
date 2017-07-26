@@ -1,88 +1,103 @@
 
-<h1>Documentation of API's</h1>
+#Documentation of API's
 
-<h1>Authentication API's</h1>
-<h2>Log in Api</h2>
-<p>Route:meal.dev/api/login?email=&password=</p>
-<p>Request type:Post with email and password</p>
+##Authentication API's
+##Log in Api
+Route:meal.dev/api/login?email=&password=
+ request parameters
+    {
+        'email':admin@yahoo.com
+        'passsword':admin
+     }
+         
+    {
+        "LoggerID": 10,
+        "DeviceID": "0660AF02",
+        "LogDateTime": "2016-08-17 13:48:57.115331",
+        "Distance": 20
+    }
+  #output
+         {
+              "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL21lYWwuZGV2XC9hcGlcL2xvZ2luIiwiaWF0IjoxNTAxMDYxMzQzLCJleHAiOjE1MDEwNjQ5NDMsIm5iZiI6MTUwMTA2MTM0MywianRpIjoiaGxJT0FOMkZlUUlWSWY0bSJ9.QhVnJuF85mTNWeuUnGI7rrBX5jrpArdKD9nIBaG1ZtA"
+         }
 
-<h2>Logout in Api</h2>
-<p>Route:meal.dev/api/logout/{token}</p>
-<p>Request type:GET with the token to destroy</p>
+##Logout in Api
+Route:meal.dev/api/logout/{token}
+Request type:GET with the token to destroy
 
-<h1>Memebers  API's</h1>
+#Memebers  API's
 
-<h2>show all members Api</h2>
-<p>Route:meal.dev/api/members?token=</p>
-<p>Request type:GET </p>
+##show all members Api
+Route:meal.dev/api/members?token=
+Request type:GET 
 
-<h2>Crete new member Api</h2>
-<p>Route:meal.dev/api/members?token=&name=</p>
-<p>Request type:POst </p>
-<p>if user has deposit than pass it Via deposit=</p>
-
-
-<h2>show all bazars of a single member Api</h2>
-<p>Route:meal.dev/api/members/{id}?token=</p>
-<p>Request type:GET ,id is member id</p>
-
-<h2>Update a member  info Api</h2>
-<p>Route:meal.dev/api/members/{id}?name=&meal_count=&token=</p>
-<p>Request type:PUT ,id is member id</p>
-
-<h2>delete a member info and his/her bazars Api</h2>
-<p>Route:meal.dev/api/members/{id}?token=</p>
-<p>Request type:Delete ,id is member id</p>
-
-<h1>Bazar API's</h1>
-
-<h2>show all bazars Api</h2>
-<p>Route:meal.dev/api/bazars?token=</p>
-<p>Request type:GET </p>
-
-<h2>Crete new bazar Api</h2>
-<p>Route:meal.dev/api/bazars?member_name=&period=&amount=0&date=&token=</p>
-<p>Request type:POst </p>
-<p>if user has note than pass it Via note=</p>
+##Crete new member Api
+Route:meal.dev/api/members?token=&name=
+Request type:POst 
+if user has deposit than pass it Via deposit=
 
 
-<h2>show a single bazar details</h2>
-<p>Route:meal.dev/api/bazars/{id}?token=</p>
-<p>Request type:GET ,id is bazar id</p>
+##show all bazars of a single member Api
+Route:meal.dev/api/members/{id}?token=
+Request type:GET ,id is member id
 
-<h2>Update a  bazar info Api</h2>
-<p>Route:meal.dev/api/bazars/{id}?member_id=&period=&amount=&date=&token=</p>
-<p>Request type:PUT ,id is bazar id</p>
+##Update a member  info Api
+Route:meal.dev/api/members/{id}?name=&meal_count=&token=
+Request type:PUT ,id is member id
 
-<h2>delete a bazar  Api</h2>
-<p>Route:meal.dev/api/bazars/{id}?token=</p>
-<p>Request type:Delete ,id is bazar id</p>
+##delete a member info and his/her bazars Api
+Route:meal.dev/api/members/{id}?token=
+Request type:Delete ,id is member id
 
-<h1>Period API's</h1>
+#Bazar API's
 
-<h2>show all periods Api</h2>
-<p>Route:meal.dev/api/periods?token=</p>
-<p>Request type:GET </p>
+##show all bazars Api
+Route:meal.dev/api/bazars?token=
+Request type:GET 
 
-<h2>Crete new period Api</h2>
-<p>Route:meal.dev/api/periods?name=&token=</p>
-<p>Request type:POst </p>
-
-
-
-<h2>show all bazar of a  single period </h2>
-<p>Route:meal.dev/api/periods/{id}?token=</p>
-<p>Request type:GET ,id is period id</p>
+##Crete new bazar Api
+Route:meal.dev/api/bazars?member_name=&period=&amount=0&date=&token=
+Request type:POst 
+if user has note than pass it Via note=
 
 
+##show a single bazar details
+Route:meal.dev/api/bazars/{id}?token=
+Request type:GET ,id is bazar id
 
-<h2>delete a period  Api</h2>
-<p>Route:meal.dev/api/periods/{id}?token=</p>
-<p>Request type:Delete ,id is period id</p>
+##Update a  bazar info Api
+Route:meal.dev/api/bazars/{id}?member_id=&period=&amount=&date=&token=
+Request type:PUT ,id is bazar id
 
-<h2>show all bazar of a  member in asingle period </h2>
-<p>Route:meal.dev/api/periods/{period_id}/{user_id}?token=</p>
-<p>Request type:GET</p>
+##delete a bazar  Api
+Route:meal.dev/api/bazars/{id}?token=
+Request type:Delete ,id is bazar id
+
+#Period API's
+
+##show all periods Api
+Route:meal.dev/api/periods?token=
+Request type:GET 
+
+##Crete new period Api
+Route:meal.dev/api/periods?name=&token=
+Request type:POst 
+
+
+
+##show all bazar of a  single period 
+Route:meal.dev/api/periods/{id}?token=
+Request type:GET ,id is period id
+
+
+
+##delete a period  Api
+Route:meal.dev/api/periods/{id}?token=
+Request type:Delete ,id is period id
+
+##show all bazar of a  member in asingle period 
+Route:meal.dev/api/periods/{period_id}/{user_id}?token=
+Request type:GET
 
 
 
