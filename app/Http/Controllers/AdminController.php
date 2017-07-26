@@ -24,18 +24,19 @@ class AdminController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
+          
         try {
             // verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 401);
-            }
+              }
         } catch (JWTException $e) {
             // something went wrong
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-
+         $user=User::whereEmail($request->email)->first();
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
+        return response()->json(['token'=>$token,'user'=>$user]);
     }
 
 
@@ -72,7 +73,7 @@ public function register(Request $request){
         }
 
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
+        return response()->json(['token'=>$token,'user'=>$user]);
     }
 
 }
