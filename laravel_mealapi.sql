@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2017 at 04:43 PM
+-- Generation Time: Aug 01, 2017 at 12:30 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -37,6 +37,14 @@ CREATE TABLE `bazars` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `bazars`
+--
+
+INSERT INTO `bazars` (`id`, `period_id`, `member_id`, `amount`, `date`, `note`, `created_at`, `updated_at`) VALUES
+(3, 2, 1, 250, '12.2.17', NULL, '2017-07-20 03:04:02', '2017-07-20 03:04:02'),
+(4, 2, 1, 600, '20/5/2017', NULL, '2017-07-20 03:58:27', '2017-07-20 03:58:27');
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +56,7 @@ CREATE TABLE `members` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `meal_count` int(10) UNSIGNED DEFAULT NULL,
   `deposit` int(10) UNSIGNED DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -56,8 +65,9 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `name`, `meal_count`, `deposit`, `created_at`, `updated_at`) VALUES
-(1, 'naime', 25, NULL, '2017-06-22 04:16:33', '2017-06-22 04:27:55');
+INSERT INTO `members` (`id`, `name`, `meal_count`, `deposit`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'sakib', NULL, NULL, 1, '2017-07-19 06:12:08', '2017-07-26 05:27:34'),
+(2, 'naime', NULL, NULL, 2, '2017-07-19 06:52:42', '2017-07-19 06:52:42');
 
 -- --------------------------------------------------------
 
@@ -76,11 +86,11 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(6, '2014_10_12_000000_create_users_table', 1),
-(7, '2014_10_12_100000_create_password_resets_table', 1),
-(8, '2017_06_03_190621_create_periods_table', 1),
-(9, '2017_06_03_190855_create_bazars_table', 1),
-(10, '2017_06_07_100056_create_members_table', 1);
+(11, '2014_10_12_000000_create_users_table', 1),
+(12, '2014_10_12_100000_create_password_resets_table', 1),
+(13, '2017_06_03_190621_create_periods_table', 1),
+(14, '2017_06_03_190855_create_bazars_table', 1),
+(15, '2017_06_07_100056_create_members_table', 1);
 
 -- --------------------------------------------------------
 
@@ -104,9 +114,20 @@ CREATE TABLE `periods` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
+  `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `periods`
+--
+
+INSERT INTO `periods` (`id`, `name`, `status`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'july 2017', 1, 2, '2017-07-19 06:56:50', '2017-07-19 06:56:50'),
+(2, 'july', 0, 1, '2017-07-19 13:53:23', '2017-07-20 03:45:14'),
+(4, 'june2017', 0, 1, '2017-07-20 04:13:14', '2017-07-26 10:37:19'),
+(5, 'august', 1, 1, '2017-07-26 10:37:19', '2017-07-26 10:37:19');
 
 -- --------------------------------------------------------
 
@@ -128,7 +149,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@yahoo.com', '$2y$10$npbLbVW6owF8PaKjm8BfgO4JGriDZOvNAylJ/ldigYj1wgnFr2O6q', '2017-06-22 04:15:05', '2017-06-22 04:15:05');
+(1, 'admin', 'admin@yahoo.com', '$2y$10$r7ryH2BtOFhTe9jNCQQRYuvgZXRzc.h128aPB24L55eFCrupcq8Oi', '2017-07-19 06:07:48', '2017-07-19 06:07:48'),
+(2, 'admin2', 'admin2@yahoo.com', '$2y$10$jiszvfRgjSdnLgTUvGmQyu7hGNgWjRE973vIt38b18DpJP2VzekQa', '2017-07-19 06:52:08', '2017-07-19 06:52:08'),
+(3, 'rafi', 'rafi@yahoo.com', '$2y$10$CR2yOKUUIfnCoZj.DJo2tOdN2D.XaoNSiL8eq5GMzz7KXWbSgp3pa', '2017-07-26 03:12:36', '2017-07-26 03:12:36'),
+(4, 'rafi', 'rafi2@yahoo.com', '$2y$10$r0IRiNm7UWfSb86AARDVHeWvBFuOnKJ.SZWWHxMj.0KL3qNJOvhUO', '2017-07-26 03:16:54', '2017-07-26 03:16:54'),
+(5, 'rafi', 'rafi3@yahoo.com', '$2y$10$oJrjqRo.ppf96HUVqjnSSeKGa9YoxnKQH2KHF93FvfnaXCSLwmQDO', '2017-07-26 03:22:16', '2017-07-26 03:22:16'),
+(6, 'rafi', 'rafi4@yahoo.com', '$2y$10$y2ZRQFgJ7z6ybDN2yL8EoeMmagTijYfH/0bYWYi00tqqO0brFEJoe', '2017-07-26 03:25:45', '2017-07-26 03:25:45'),
+(7, 'rafi', 'rafi5@yahoo.com', '$2y$10$N5vUeGqCjFTkaw6CKT1YzONg0T3OJdZf7zIkPblDmCbE8wjX3qBua', '2017-07-26 05:06:27', '2017-07-26 05:06:27');
 
 --
 -- Indexes for dumped tables
@@ -178,27 +205,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bazars`
 --
 ALTER TABLE `bazars`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `periods`
 --
 ALTER TABLE `periods`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
