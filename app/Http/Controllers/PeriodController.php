@@ -200,14 +200,15 @@ class PeriodController extends Controller
             return response()->json(['message'=>'no such period available'],404);
         }
 
+     
         if ($request->status==1) {
              foreach ($user->periods as $period) {
                  if ($period->id==$periodToUpdate->id) {
-                     $period->status==1;
+                     $period->status=1;
                       $period->save();
                  }
                  else{
-                     $period->status==0;
+                     $period->status=0;
                       $period->save();
                  }
              }
