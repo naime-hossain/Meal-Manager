@@ -42,7 +42,7 @@ request type :POST
 
 Route:meal.dev/api/user/{id}?name=&email=&password=&token
 
-request type :POST
+request type :Put
 
   
  request parameters
