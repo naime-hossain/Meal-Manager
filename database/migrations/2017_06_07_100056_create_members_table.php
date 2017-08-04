@@ -19,6 +19,7 @@ class CreateMembersTable extends Migration
             $table->integer('meal_count')->unsigned()->nullable();
             $table->integer('deposit')->nullable()->unsigned();
             $table->integer('user_id');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

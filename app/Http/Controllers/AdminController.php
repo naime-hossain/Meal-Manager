@@ -17,7 +17,7 @@ class AdminController extends Controller
        // except for the login method. We don't want to prevent
        // the user from retrieving their token if they don't already have it
     // $this->middleware('jwt.auth', ['except' => ['login']]);
-    $this->middleware('guest')->except('logout');
+    $this->middleware('jwt.auth')->except('login','register');
    }
 
  public function login(Request $request)
@@ -151,7 +151,20 @@ public function register(Request $request){
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        if (Auth::user()->id==$id) {
+            $user=User::find($id);
+            $input=$request->all();
+            //bcrypt the password
+            if ($request->password) {
+               $input[password]=bcrypt($request->password);
+            }
+
+            $user->update($input);
+            return response()->json(['content'=>$user,'message'=>'Info Updated']);
+
+        }
+        return response()->json(['message'=>'You are not authrized for this action']);
     }
 
     /**

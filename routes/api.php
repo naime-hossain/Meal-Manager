@@ -23,6 +23,7 @@ Route::resource('/periods', 'PeriodController',['except' => ['create']]);
 Route::get('/periods/{period_id}/{memeber_id}', 'PeriodController@showMemberBazar');
 // Route::resource('Admin','AdminController',['only' => ['index']]);
 Route::post('register','AdminController@register');
+Route::put('user/{id}','AdminController@update');
 Route::post('login','AdminController@login');
 Route::get('logout/{token}','AdminController@logout');
 

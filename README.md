@@ -38,7 +38,42 @@ request type :POST
      }
   
      
+## user update api
 
+Route:meal.dev/api/user/{id}?name=&email=&password=&token
+
+request type :POST
+
+  
+ request parameters
+ 
+    {
+    	"token":  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL2",
+	        "email":"admin@yahoo.com",
+		'name':'admdin'
+	       "passsword":"admin",//if change password
+		"is_deposit":0, //1
+		"theme_name":text, 
+		
+		
+     }
+     
+     
+     
+  Output
+  
+  
+	    {
+	    "content": {
+	        "id": 1,
+	        "name": "updatedadmin",
+	        "email": "admin@yahoo.com",
+	        "created_at": "2017-07-19 12:07:48",
+	        "updated_at": "2017-08-04 10:46:15"
+	    },
+	    "message": "Info Updated"
+	}
+  
 
 ## Log in Api
 Route:meal.dev/api/login?email=&password=
@@ -272,7 +307,7 @@ output
   
 ## Update a member  info Api
 
-Route:meal.dev/api/members/{id}?name=&meal_count=&token=
+Route:meal.dev/api/members/{id}?name=&meal_count=&note=&token=
 
 Request type:PUT ,id is member id
 
@@ -283,6 +318,7 @@ request parameters
 		'name':'jhon doe',
 		'meal_count:23',
 		'deposit':500,//if deposited
+		'note':text,//if any note
 	     
          }
 	 
@@ -295,6 +331,7 @@ output
 		"meal_count": null,
 		"deposit": null,
 		"user_id": 1,
+		"note": text,
 		"created_at": "2017-07-19 12:12:08",
 		"updated_at": "2017-07-26 11:27:34"
 	    },

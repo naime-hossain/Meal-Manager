@@ -200,7 +200,7 @@ class PeriodController extends Controller
             return response()->json(['message'=>'no such period available'],404);
         }
 
-     
+     //if the status is 1(active) then make all he status 0(not_active)
         if ($request->status==1) {
              foreach ($user->periods as $period) {
                  if ($period->id==$periodToUpdate->id) {
@@ -213,6 +213,15 @@ class PeriodController extends Controller
                  }
              }
            }
+////if user change the name then check it if its available or not
+           if ($request->name!=$periodToUpdate->name) {
+        $is_exist_period=$user->periods()->whereName($request->name)->first();
+             ///check if period is exists or not
+             if ($is_exist_period) {
+                return response()->json(['message'=>'period already created,try different name'],404);
+
+                 }
+            }
            $periodToUpdate->update($request->all());
            return response()->json(['message'=>'period Updated succesfully'],200);
 

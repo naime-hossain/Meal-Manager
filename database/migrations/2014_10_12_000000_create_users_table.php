@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('password');
+            $table->integer('is_deposit')->default(0)->unsigned();
+            $table->string('theme_name')->default('blue');
             $table->timestamps();
         });
     }
