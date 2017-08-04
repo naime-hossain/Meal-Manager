@@ -31,10 +31,16 @@ class BazarController extends Controller
            
          
          $bazars=$user->bazars;
+         // print_r($bazars);
         if (!count($bazars)) {
-            # code...
+          
             return response()->json(['message'=>'No Bazar forund'],404);
         }
+         //add the member name to each bazar
+         foreach ($bazars as $bazar) {
+                $member=$bazar->member;
+               $bazar['member_name']=$bazar->member->name;
+           }
         return response()->json(['content'=>$bazars],200);
     }
 
@@ -121,7 +127,10 @@ class BazarController extends Controller
         }
            // $bazar['member_name']=$bazar->member->name;
          /* without apbe line laravel add member info just doing this?*/
+
         $member_name=$bazar->member->name;
+         //add the member name to each bazar
+        $bazar['member_name']=$member_name;
     return response()->json(['content'=>$bazar],200); 
     }
 

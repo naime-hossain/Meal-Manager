@@ -59,6 +59,11 @@ class PeriodController extends Controller
              # code...
             return response()->json(['content'=>$period,'message'=>'no bazar available for this member in this period'],200);
          }
+         //add the member name to each bazar
+         foreach ($memberBazars as $bazar) {
+             $member_name=$bazar->member->name;
+             $bazar['member_name']=$member_name;
+         }
 
       return response()->json(['content'=>$period,'bazars'=>$memberBazars],200);
 
@@ -155,9 +160,15 @@ class PeriodController extends Controller
              # code...
             return response()->json(['content'=>$period,'message'=>'no bazar available for this period'],200);
          }
-
+    
       // return response()->json(['content'=>$period,'bazars'=>$bazars],200);
          /* without avobe line laravel add bazars info just doing $bazars=$period->bazars;?*/
+         
+            //add the member name to each bazar
+         foreach ($bazars as $bazar) {
+             $member_name=$bazar->member->name;
+             $bazar['member_name']=$member_name;
+         }
       return response()->json(['content'=>$period],200);
     }
 
