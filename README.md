@@ -217,7 +217,7 @@ request parameters
 	
 output
 
-	{
+	   {
 		    "content": {
 			"id": 2,
 			"name": "july",
@@ -235,7 +235,17 @@ output
 			    "date": "12.2.17",
 			    "note": null,
 			    "created_at": "2017-07-20 09:04:02",
-			    "updated_at": "2017-07-20 09:04:02"
+			    "updated_at": "2017-07-20 09:04:02",
+			    "member_name": "sakib",
+			    "member": {
+				"id": 1,
+				"name": "sakib",
+				"meal_count": null,
+				"deposit": null,
+				"user_id": 1,
+				"created_at": "2017-07-19 12:12:08",
+				"updated_at": "2017-07-26 11:27:34"
+			    }
 			},
 			{
 			    "id": 4,
@@ -245,10 +255,20 @@ output
 			    "date": "20/5/2017",
 			    "note": null,
 			    "created_at": "2017-07-20 09:58:27",
-			    "updated_at": "2017-07-20 09:58:27"
+			    "updated_at": "2017-07-20 09:58:27",
+			    "member_name": "sakib",
+			    "member": {
+				"id": 1,
+				"name": "sakib",
+				"meal_count": null,
+				"deposit": null,
+				"user_id": 1,
+				"created_at": "2017-07-19 12:12:08",
+				"updated_at": "2017-07-26 11:27:34"
+			    }
 			}
 		    ]
-	}
+		}
   
 ## Update a member  info Api
 
@@ -329,7 +349,7 @@ Request type:GET
      
    output
    
-	   {
+		{
 		    "content": [
 			{
 			    "id": 3,
@@ -340,7 +360,17 @@ Request type:GET
 			    "note": null,
 			    "created_at": "2017-07-20 09:04:02",
 			    "updated_at": "2017-07-20 09:04:02",
-			    "user_id": 1
+			    "user_id": 1,
+			    "member_name": "sakib",
+			    "member": {
+				"id": 1,
+				"name": "sakib",
+				"meal_count": null,
+				"deposit": null,
+				"user_id": 1,
+				"created_at": "2017-07-19 12:12:08",
+				"updated_at": "2017-07-26 11:27:34"
+			    }
 			},
 			{
 			    "id": 4,
@@ -351,10 +381,20 @@ Request type:GET
 			    "note": null,
 			    "created_at": "2017-07-20 09:58:27",
 			    "updated_at": "2017-07-20 09:58:27",
-			    "user_id": 1
+			    "user_id": 1,
+			    "member_name": "sakib",
+			    "member": {
+				"id": 1,
+				"name": "sakib",
+				"meal_count": null,
+				"deposit": null,
+				"user_id": 1,
+				"created_at": "2017-07-19 12:12:08",
+				"updated_at": "2017-07-26 11:27:34"
+			    }
 			}
-		    ]
-	}
+		     ]
+		}
 
 
 ## Crete new bazar Api
@@ -409,6 +449,7 @@ Request type:GET ,id is bazar id
       
  output
  
+ 
 	{
 		    "content": {
 			"id": 3,
@@ -420,6 +461,7 @@ Request type:GET ,id is bazar id
 			"created_at": "2017-07-20 09:04:02",
 			"updated_at": "2017-07-20 09:04:02",
 			"user_id": 1,
+			"member_name": "sakib",
 			"member": {
 			    "id": 1,
 			    "name": "sakib",
@@ -603,7 +645,7 @@ Request type:GET ,id is period id
       
   output
   
-	  {
+		{
 		    "content": {
 			"id": 2,
 			"name": "july",
@@ -620,7 +662,17 @@ Request type:GET ,id is period id
 				"date": "12.2.17",
 				"note": null,
 				"created_at": "2017-07-20 09:04:02",
-				"updated_at": "2017-07-20 09:04:02"
+				"updated_at": "2017-07-20 09:04:02",
+				"member_name": "sakib",
+				"member": {
+				    "id": 1,
+				    "name": "sakib",
+				    "meal_count": null,
+				    "deposit": null,
+				    "user_id": 1,
+				    "created_at": "2017-07-19 12:12:08",
+				    "updated_at": "2017-07-26 11:27:34"
+				}
 			    },
 			    {
 				"id": 4,
@@ -630,12 +682,21 @@ Request type:GET ,id is period id
 				"date": "20/5/2017",
 				"note": null,
 				"created_at": "2017-07-20 09:58:27",
-				"updated_at": "2017-07-20 09:58:27"
+				"updated_at": "2017-07-20 09:58:27",
+				"member_name": "sakib",
+				"member": {
+				    "id": 1,
+				    "name": "sakib",
+				    "meal_count": null,
+				    "deposit": null,
+				    "user_id": 1,
+				    "created_at": "2017-07-19 12:12:08",
+				    "updated_at": "2017-07-26 11:27:34"
+				}
 			    }
 			]
 		    }
-	}
-
+		}
 
 ## delete a period  Api
 
