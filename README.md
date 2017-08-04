@@ -625,8 +625,27 @@ Request type:POst
 	
 ## update period api
 
-     
-     
+Route:meal.dev/api/periods/{id}?name=&status=&token=
+
+Request type:Put 
+
+ request parameters
+ 
+
+     {
+	     "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL21lYWwuZGV2XC9hcGlc",
+	     'name':'august',
+	     'status':1, // or 0
+	    
+	     
+     }
+   
+   output 
+
+		   {
+		    "message": "period Updated succesfully"
+		   }
+		     
 
 ## show all bazar of a  single period 
 

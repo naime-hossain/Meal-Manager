@@ -163,7 +163,7 @@ class PeriodController extends Controller
     
       // return response()->json(['content'=>$period,'bazars'=>$bazars],200);
          /* without avobe line laravel add bazars info just doing $bazars=$period->bazars;?*/
-         
+
             //add the member name to each bazar
          foreach ($bazars as $bazar) {
              $member_name=$bazar->member->name;
@@ -192,7 +192,30 @@ class PeriodController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
+        $user=Auth::user();
+           
+         $periodToUpdate=$user->periods()->whereId($id)->first();
+        if(!$periodToUpdate)
+        {
+            return response()->json(['message'=>'no such period available'],404);
+        }
+
+        if ($request->status==1) {
+             foreach ($user->periods as $period) {
+                 if ($period->id==$periodToUpdate->id) {
+                     $period->status==1;
+                      $period->save();
+                 }
+                 else{
+                     $period->status==0;
+                      $period->save();
+                 }
+             }
+           }
+           $periodToUpdate->update($request->all());
+           return response()->json(['message'=>'period Updated succesfully'],200);
+
+          
     }
 
     /**
