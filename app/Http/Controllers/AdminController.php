@@ -83,7 +83,7 @@ public function register(Request $request){
      public function logout($token)
     {
         //
-        JWTAuth::invalidate($token);
+        // JWTAuth::invalidate($token);
         return response()->json(['message'=>'you are logout']);
     }
 
