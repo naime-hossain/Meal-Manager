@@ -24,6 +24,7 @@ Route::get('/periods/{period_id}/{memeber_id}', 'PeriodController@showMemberBaza
 // Route::resource('Admin','AdminController',['only' => ['index']]);
 Route::post('register','AdminController@register');
 Route::put('user/{id}','AdminController@update');
+Route::get('user','AdminController@getuser');
 Route::post('login','AdminController@login');
 Route::get('logout/{token}','AdminController@logout');
 

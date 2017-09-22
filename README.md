@@ -74,7 +74,38 @@ request type :Put
 	    "message": "Info Updated"
 	}
   
+## check user login or noy
 
+Route:meal.dev/api/user?token=
+
+request type :get
+
+  
+ request parameters
+ 
+    {
+    	"token":  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL2",
+	       
+		
+		
+     }
+     
+     
+     
+  Output
+  
+  
+	    {
+	    "content": {
+	        "id": 1,
+	        "name": "updatedadmin",
+	        "email": "admin@yahoo.com",
+	        "created_at": "2017-07-19 12:07:48",
+	        "updated_at": "2017-08-04 10:46:15"
+	    },
+	    "message": "user loged in"
+	}
+  
 ## Log in Api
 Route:meal.dev/api/login?email=&password=
 

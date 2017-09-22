@@ -132,14 +132,18 @@ public function register(Request $request){
 
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the login user.
      *
-     * @param  int  $id
+     * @param  
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function getuser()
     {
-        //
+        if (Auth::check()) {
+           $user=Auth::user();
+           return response()->json(['content'=>$user,'message'=>'user loged in']);
+        }
+        return response()->json(['content' => 'not login'], 401);
     }
 
     /**
@@ -157,7 +161,7 @@ public function register(Request $request){
             $input=$request->all();
             //bcrypt the password
             if ($request->password) {
-               $input[password]=bcrypt($request->password);
+               $input['password']=bcrypt($request->password);
             }
 
             $user->update($input);
