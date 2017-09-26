@@ -2,7 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
-
+/doc.txt
 /.idea
 /.vagrant
 Homestead.json
